@@ -36,7 +36,6 @@ def build_codes(root: Node) -> Dict[int, str]:
         if node is None:
             return
         if node.symbol is not None:
-            # node.symbol comes from iterating bytes, so it's an int
             codes[int(node.symbol)] = prefix or '0'
             return
         _walk(node.left, prefix + '0')
