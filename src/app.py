@@ -17,7 +17,6 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 def index():
     return render_template('index.html')
 
-
 @app.route('/upload', methods=['POST'])
 def upload():
     f = request.files.get('file')
@@ -26,30 +25,94 @@ def upload():
     filename = secure_filename(f.filename)
     in_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
     f.save(in_path)
+
+    # Comprime o arquivo
     out_name = filename + '.huff'
     out_path = os.path.join(app.config['UPLOAD_FOLDER'], out_name)
     huffman.compress_file(in_path, out_path)
 
-    # build download url for .huff. If running on localhost, prefer LAN IP so mobile devices can reach it
-    download_url = url_for('download_file', filename=out_name, _external=True)
+    # Gera também a versão descomprimida do .huff
+    decompressed_name = filename  # mesmo nome original
+    decompressed_path = os.path.join(app.config['UPLOAD_FOLDER'], decompressed_name)
+    huffman.decompress_file(out_path, decompressed_path)
 
-    # if url contains 127.0.0.1 or localhost, try to replace with LAN IP
-    if '127.0.0.1' in download_url or 'localhost' in download_url:
-        try:
-            s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-            s.connect(('8.8.8.8', 80))
-            local_ip = s.getsockname()[0]
-            s.close()
-            download_url = download_url.replace('127.0.0.1', local_ip).replace('localhost', local_ip)
-        except Exception:
-            pass
+    # URL da página de resultados
+    result_page_url = url_for('result_page', filename=filename, _external=True)
 
-    # generate QR pointing to the .huff download
-    qr = qrcode.make(download_url)
+    # QR code apontando para a página de resultados
+    qr = qrcode.make(result_page_url)
     qr_path = os.path.join(app.config['UPLOAD_FOLDER'], filename + '.png')
     qr.save(qr_path)
 
-    return render_template('result.html', download_url=download_url, qr_image=os.path.basename(qr_path))
+    return render_template(
+        'result.html',
+        download_url=url_for('download_file', filename=out_name, _external=True),
+        download_url_decompressed=url_for('download_file', filename=decompressed_name, _external=True),
+        qr_image=os.path.basename(qr_path)
+    )
+
+
+# Nova rota para a página de resultados
+@app.route('/result/<filename>')
+def result_page(filename):
+    out_name = filename + '.huff'
+    decompressed_name = filename
+    return render_template(
+        'result.html',
+        download_url=url_for('download_file', filename=out_name, _external=True),
+        download_url_decompressed=url_for('download_file', filename=decompressed_name, _external=True),
+        qr_image=None  # não precisamos mostrar QR aqui
+    )
+
+
+@app.route('/decompress', methods=['POST'])
+def decompress():
+    f = request.files.get('file')
+    if not f:
+        return 'No file', 400
+
+    filename = secure_filename(f.filename)
+    in_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+    f.save(in_path)
+
+    # Nome do arquivo descomprimido
+    if filename.endswith('.huff'):
+        out_name = filename[:-5]  # remove '.huff'
+    else:
+        out_name = filename + '.decompressed'
+    out_path = os.path.join(app.config['UPLOAD_FOLDER'], out_name)
+
+    try:
+        huffman.decompress_file(in_path, out_path)
+    except Exception as e:
+        return f'Erro ao descomprimir: {str(e)}', 500
+
+    # Retorna o arquivo descomprimido como download imediato
+    return send_file(out_path, as_attachment=True, download_name=out_name)
+
+
+@app.route('/download_decompressed/<filename>', methods=['GET'])
+def download_decompressed(filename):
+    in_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+
+    if not os.path.exists(in_path):
+        return "Arquivo não encontrado", 404
+
+    # Nome do arquivo descomprimido
+    if filename.endswith('.huff'):
+        out_name = filename[:-5]  # remove ".huff"
+    else:
+        out_name = filename + '.decompressed'
+
+    out_path = os.path.join(app.config['UPLOAD_FOLDER'], out_name)
+
+    try:
+        huffman.decompress_file(in_path, out_path)
+    except Exception as e:
+        return f"Erro ao descomprimir: {str(e)}", 500
+
+    # Retorna o arquivo descomprimido como download
+    return send_file(out_path, as_attachment=True, download_name=out_name)
 
 
 @app.route('/uploads/<path:filename>')

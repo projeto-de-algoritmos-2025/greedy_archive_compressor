@@ -19,31 +19,41 @@
       <!-- Compressor -->
       <div class="flex-1 flex flex-col justify-between">
         <div>
-          <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+          <h5
+            class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+          >
             Compressor de Arquivos
           </h5>
           <p class="font-normal text-gray-700 dark:text-gray-400">
-            Baixe seus arquivos em outros dispositivos utilizando compressão de dados.
+            Baixe seus arquivos em outros dispositivos utilizando compressão de
+            dados.
           </p>
         </div>
+        <!-- Compressor -->
         <form
+          id="compressForm"
           action="/upload"
           method="post"
           enctype="multipart/form-data"
           class="flex flex-col"
         >
-          <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-200" for="file_input">
+          <label
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-200"
+            for="compressFileInput"
+          >
             Enviar arquivo
           </label>
           <input
             class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-            id="file_input"
+            id="compressFileInput"
             name="file"
             type="file"
           />
           <button
+            id="compressBtn"
             type="submit"
             class="mt-4 w-full text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            disabled
           >
             Comprimir
           </button>
@@ -56,31 +66,41 @@
       <!-- Descompressor -->
       <div class="flex-1 flex flex-col justify-between">
         <div>
-          <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+          <h5
+            class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+          >
             Descompressor de Arquivos
           </h5>
           <p class="font-normal text-gray-700 dark:text-gray-400">
             Faça a descompressão dos seus arquivos .huff por aqui.
           </p>
         </div>
+
+        <!-- Descompressor -->
         <form
-          action="/upload"
+          id="decompressForm"
+          action="/decompress"
           method="post"
           enctype="multipart/form-data"
           class="flex flex-col"
         >
-          <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-200" for="file_input">
+          <label
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-200"
+            for="decompressFileInput"
+          >
             Enviar arquivo
           </label>
           <input
             class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-            id="file_input"
+            id="decompressFileInput"
             name="file"
             type="file"
           />
           <button
+            id="decompressBtn"
             type="submit"
             class="mt-4 w-full text-white bg-purple-700 hover:bg-purple-800 focus:outline-none focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800"
+            disabled
           >
             Descomprimir
           </button>
@@ -89,5 +109,24 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+
+    <script>
+      // Função para ativar/desativar botão
+      function toggleButton(input, button) {
+        input.addEventListener("change", () => {
+          button.disabled = input.files.length === 0;
+        });
+      }
+
+      // Compressor
+      const compressInput = document.getElementById("compressFileInput");
+      const compressBtn = document.getElementById("compressBtn");
+      toggleButton(compressInput, compressBtn);
+
+      // Descompressor
+      const decompressInput = document.getElementById("decompressFileInput");
+      const decompressBtn = document.getElementById("decompressBtn");
+      toggleButton(decompressInput, decompressBtn);
+    </script>
   </body>
 </html>
