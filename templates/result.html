@@ -1,15 +1,80 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>Resultado - Greedy Archive Compressor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
   </head>
-  <body>
-    <h1>Compressão concluída</h1>
+  <body
+    class="min-h-screen flex items-center justify-center bg-white dark:bg-gray-900 bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern.svg')] dark:bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern-dark.svg')]"
+  >
+    <div
+      class="max-w-sm bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700"
+    >
+      <a href="#">
+        <img class="rounded-t-lg" src="/uploads/{{ qr_image }}" alt="" />
+      </a>
+      <div class="p-5">
+          <h5
+            class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+          >
+            Compressão concluída
+          </h5>
+        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+          Baixe seu arquivo de diferentes formas, seja pelo QR code (.zip), ou clicando em um formato especifico pelos botões.
+        </p>
+        <a
+          href="#"
+          class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        >
+          .huff
+          <svg
+            class="w-3.5 h-3.5 rotate-90"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 14 10"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M1 5h12m0 0L9 1m4 4L9 9"
+            />
+          </svg>
+        </a>
+        <a
+          href="#"
+          class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        >
+          .zip
+          <svg
+            class="w-3.5 h-3.5 rotate-90"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 14 10"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M1 5h12m0 0L9 1m4 4L9 9"
+            />
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- <h1>Compressão concluída</h1>
+
   <p>Link para download (.huff): <a href="{{ download_url }}">{{ download_url }}</a></p>
   <p>Link para download (.zip): <a href="{{ download_url_zip }}">{{ download_url_zip }}</a></p>
   <p>QR Code para baixar pelo celular (aponta para o .zip):</p>
   <img src="/uploads/{{ qr_image }}" alt="QR code">
-    <p><a href="/">Voltar</a></p>
+    <p><a href="/">Voltar</a></p> -->
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
   </body>
 </html>
