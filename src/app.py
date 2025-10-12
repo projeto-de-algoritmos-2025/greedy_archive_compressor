@@ -4,6 +4,9 @@ from flask import Flask, request, render_template, send_from_directory, url_for
 from werkzeug.utils import secure_filename
 from src import huffman
 import qrcode
+import threading
+import time
+import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 UPLOAD_FOLDER = os.path.join(BASE_DIR, 'uploads')
@@ -11,6 +14,19 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 app = Flask(__name__, template_folder=os.path.join(BASE_DIR, 'templates'))
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+
+def delete_file_later(path, delay=300):
+    """Deleta o arquivo após um certo tempo (em segundos)."""
+    def _delete():
+        time.sleep(delay)
+        if os.path.exists(path):
+            try:
+                os.remove(path)
+                print(f"Arquivo {path} deletado após {delay} segundos.")
+            except Exception as e:
+                print(f"Erro ao deletar {path}: {e}")
+    threading.Thread(target=_delete, daemon=True).start()
 
 
 @app.route('/')
@@ -43,6 +59,13 @@ def upload():
     qr = qrcode.make(result_page_url)
     qr_path = os.path.join(app.config['UPLOAD_FOLDER'], filename + '.png')
     qr.save(qr_path)
+
+    # Agenda exclusão do QR code após 30 minutos
+    delete_file_later(qr_path, delay=300)
+
+    # Opcional: também deletar o arquivo .huff e o descomprimido após 30min
+    delete_file_later(out_path, delay=300)
+    delete_file_later(decompressed_path, delay=300)
 
     return render_template(
         'result.html',
