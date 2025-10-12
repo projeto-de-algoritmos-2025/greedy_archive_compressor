@@ -14,43 +14,78 @@
     class="min-h-screen flex items-center justify-center bg-white dark:bg-gray-900 bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern.svg')] dark:bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern-dark.svg')]"
   >
     <div
-      href="#"
-      class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700"
+      class="flex flex-row p-6 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 gap-6 w-full max-w-4xl"
     >
-      <h5
-        class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
-      >
-        Compressor de Arquivos
-      </h5>
-      <p class="font-normal text-gray-700 dark:text-gray-400">
-        Baixe seus arquivos em outros dispositivos utilizando compressão de
-        dados.
-      </p>
-
-      <form
-        action="/upload"
-        method="post"
-        enctype="multipart/form-data"
-        class="mt-4"
-      >
-        <label
-          class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-200"
-          for="file_input"
-          >Enviar arquivo</label
+      <!-- Compressor -->
+      <div class="flex-1 flex flex-col justify-between">
+        <div>
+          <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+            Compressor de Arquivos
+          </h5>
+          <p class="font-normal text-gray-700 dark:text-gray-400">
+            Baixe seus arquivos em outros dispositivos utilizando compressão de dados.
+          </p>
+        </div>
+        <form
+          action="/upload"
+          method="post"
+          enctype="multipart/form-data"
+          class="flex flex-col"
         >
-        <input
-          class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-          id="file_input"
-          type="file"
-        />
+          <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-200" for="file_input">
+            Enviar arquivo
+          </label>
+          <input
+            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+            id="file_input"
+            name="file"
+            type="file"
+          />
+          <button
+            type="submit"
+            class="mt-4 w-full text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          >
+            Comprimir
+          </button>
+        </form>
+      </div>
 
-        <button
-          type="submit"
-          class="mt-4 w-full text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+      <!-- Linha vertical -->
+      <div class="w-px bg-gray-300 dark:bg-gray-600"></div>
+
+      <!-- Descompressor -->
+      <div class="flex-1 flex flex-col justify-between">
+        <div>
+          <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+            Descompressor de Arquivos
+          </h5>
+          <p class="font-normal text-gray-700 dark:text-gray-400">
+            Faça a descompressão dos seus arquivos .huff por aqui.
+          </p>
+        </div>
+        <form
+          action="/upload"
+          method="post"
+          enctype="multipart/form-data"
+          class="flex flex-col"
         >
-          Enviar
-        </button>
-      </form>
+          <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-200" for="file_input">
+            Enviar arquivo
+          </label>
+          <input
+            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+            id="file_input"
+            name="file"
+            type="file"
+          />
+          <button
+            type="submit"
+            class="mt-4 w-full text-white bg-purple-700 hover:bg-purple-800 focus:outline-none focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800"
+          >
+            Descomprimir
+          </button>
+        </form>
+      </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
