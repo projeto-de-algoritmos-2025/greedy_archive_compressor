@@ -1,6 +1,6 @@
 import os
 import socket
-from flask import Flask, request, render_template, send_from_directory, url_for
+from flask import Flask, request, render_template, send_from_directory, url_for, send_file
 from werkzeug.utils import secure_filename
 from src import huffman
 import qrcode
