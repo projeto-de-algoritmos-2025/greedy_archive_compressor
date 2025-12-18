@@ -36,6 +36,9 @@ Exemplo da execução da Aplicação:
 <p align="center">
   <img src="assets/huffman.png" alt="Huffman" width="700px"/>
 </p>
+<p align="center">
+  <img src="assets/compressao.png" alt="Compressão" width="700px"/>
+</p>
 
 
 Observações e próximos passos:
