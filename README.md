@@ -1,37 +1,27 @@
-# Greedy Archive Compressor (Huffman + QR)
+# ALGORITMOS GULOSOS — Compressor de Arquivos com Huffman
 
-Projeto que comprime arquivos usando o algoritmo de Huffman e gera um QR code com o link para baixar o arquivo comprimido pelo celular.
+**Conteúdo da Disciplina**: Algoritmos Gulosos
 
-Funcionalidades iniciais:
-- Compressor/descompressor Huffman (arquivo em `src/huffman.py`).
-- Servidor Flask para upload e geração de QR (em progresso).
+## Alunos
 
-Como usar (RÁPIDO):
+| Matrícula | Aluno |
+| -- | -- |
+| 231026901 | Caio Ferreira Duarte |
+| 211029601 | Victor Pontual Guedes Arruda Nobrega |
 
-Pré-requisitos: Python 3.8+ e virtualenv (recomendado).
+## Sobre
+Este projeto é uma aplicação web para compressão e descompressão de arquivos utilizando o **algoritmo de Huffman**, um exemplo clássico de algoritmo guloso. O objetivo é demonstrar a eficácia da codificação de Huffman para a compressão de dados sem perdas.
 
-1. Criar e ativar um ambiente virtual (Windows PowerShell):
+A aplicação é desenvolvida em Python, utilizando `Flask` para o backend, e permite que o usuário faça o upload de um arquivo, o comprima para o formato `.huff` e, em seguida, faça o download do arquivo comprimido ou o descomprima de volta ao seu formato original.
 
-```powershell
-python -m venv .venv; .\.venv\Scripts\Activate.ps1
-```
+## Algoritmo (visão geral)
 
-2. Instalar dependências:
+### Codificação de Huffman — Um Algoritmo Guloso
+O algoritmo de Huffman constrói uma árvore de prefixos de baixo para cima (bottom-up). Ele começa tratando cada símbolo do arquivo como um nó folha e, em cada passo, combina os dois nós de menor frequência para formar um novo nó interno. A frequência do novo nó é a soma das frequências de seus filhos. Esse processo é repetido até que reste apenas um nó, a raiz da árvore.
 
-```powershell
-pip install -r requirements.txt
-```
+A abordagem é "gulosa" porque, a cada etapa, ele faz a escolha localmente ótima de mesclar os dois nós menos frequentes, o que leva a uma solução globalmente ótima, resultando em um código de prefixo de comprimento variável e ideal para a compressão.
 
-3. Executar o servidor (desenvolvimento):
-
-```powershell
-python -m src.app
-```
-
-4. No navegador, abra `http://127.0.0.1:5000/` e envie um arquivo. Após a compressão você verá um QR code e um link direto para baixar o arquivo `.huff`.
-
-5. Escanear o QR com o celular — ele apontará para o link de download e você poderá baixar o arquivo comprimido diretamente no celular.
-
+## Screenshots
 Exemplo da execução da Aplicação:
 <p align="center">
   <img src="assets/huffman.png" alt="Huffman" width="700px"/>
@@ -40,7 +30,34 @@ Exemplo da execução da Aplicação:
   <img src="assets/compressao.png" alt="Compressão" width="700px"/>
 </p>
 
+## Instalação
+Requisitos:
+- Python 3.8+
 
-Observações e próximos passos:
-- A implementação atual serve os arquivos a partir da pasta `uploads/` para desenvolvimento. Em produção, servir via CDN ou S3 é recomendado.
-- O formato do arquivo `.huff` usado aqui inclui um cabeçalho simples com as tabelas de código; não é compatível com ferramentas externas.
+Passos:
+1. Clonar o repositório.
+2. (Opcional) Criar e ativar um ambiente virtual.
+
+```powershell
+python -m venv .venv
+./.venv/Scripts/Activate.ps1
+```
+3. Instalar as dependências:
+```powershell
+pip install -r requirements.txt
+```
+
+## Uso
+
+1. Abra um terminal na pasta do projeto.
+
+2. Execute a aplicação Flask:
+
+```powershell
+python src/app.py
+```
+
+## Apresentação
+
+Vídeo disponível em:
+https://youtu.be/fZ1WKv3jRLA?si=6xPxQsA2lbRavCIy
