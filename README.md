@@ -32,6 +32,12 @@ python -m src.app
 
 5. Escanear o QR com o celular — ele apontará para o link de download e você poderá baixar o arquivo comprimido diretamente no celular.
 
+Exemplo da execução da Aplicação:
+<p align="center">
+  <img src="assets/huffman.png" alt="Huffman" width="700px"/>
+</p>
+
+
 Observações e próximos passos:
 - A implementação atual serve os arquivos a partir da pasta `uploads/` para desenvolvimento. Em produção, servir via CDN ou S3 é recomendado.
 - O formato do arquivo `.huff` usado aqui inclui um cabeçalho simples com as tabelas de código; não é compatível com ferramentas externas.
