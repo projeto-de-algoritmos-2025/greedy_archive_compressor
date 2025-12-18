@@ -60,4 +60,4 @@ python src/app.py
 ## Apresentação
 
 Vídeo disponível em:
-https://youtu.be/fZ1WKv3jRLA?si=6xPxQsA2lbRavCIy
+https://youtu.be/yelaodjaVXI
